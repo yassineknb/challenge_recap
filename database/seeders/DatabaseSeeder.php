@@ -2,21 +2,21 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Booking;
+use App\Models\Service;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Crée 10 services
+        $services = Service::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Crée 30 réservations
+        // Pour chaque réservation, on choisit un service au hasard parmi les 10 créés
+        Booking::factory(30)->create([
+            'service_id' => $services->random()->id
+        ]);
     }
 }

@@ -4,18 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Booking extends Model
 {
     use HasFactory;
-    protected $guarded=[];
-    public function user(){
-        return $this->BelongsTo(User::class);
 
-    }
+    protected $fillable = [
+        'service_id',
+        'date',
+        'time',
+        'status',
+    ];
 
-    public function services(){
-        $this->BelongsToMany(Service::class,'booking_service');
-
+    /**
+     * Une réservation appartient à un service.
+     */
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo(Service::class);
     }
 }
